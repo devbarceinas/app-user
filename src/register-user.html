@@ -12,6 +12,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
 <link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="shared-styles.html">
 
@@ -32,14 +33,50 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Registrar empleado</h1>
-      <paper-input label="Nombre completo"></paper-input>
-      <paper-button raised class="indigo">raised</paper-button>
+      <paper-input value="{{fullName}}" id="name_input" label="Nombre completo"></paper-input>
+      <paper-button raised on-click="sendData" class="indigo" href$="/src/list-user.html">SAVE</paper-button>
     </div>
+
+    <iron-ajax
+      url="http://localhost:3000/people"
+      id="postUser"
+      method="POST"
+      body='{{postBody}}'
+      handle-as="json"
+      content-type="application/json"
+    >
+    </iron-ajax>
   </template>
 
   <script>
     class RegisterUser extends Polymer.Element {
       static get is() { return 'register-user'; }
+      static get properties() {
+        return {
+          fullName: {
+            value: String,
+            notify: true
+          },
+          postBody: {
+            type: String,
+            computed: 'getPostBody(fullName)'
+          }
+        };
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+      }
+
+      sendData(event) {
+        this.$.postUser.generateRequest();
+      }
+
+      getPostBody(name) {
+        return { 
+          name: name
+        };
+      }
     }
 
     window.customElements.define(RegisterUser.is, RegisterUser);
