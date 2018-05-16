@@ -9,9 +9,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view1">
+<dom-module id="register-user">
   <template>
     <style include="shared-styles">
       :host {
@@ -19,21 +23,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      paper-button.indigo {
+        background-color: #1B3440;
+        color: #eee;
+      }
     </style>
 
     <div class="card">
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
+      <h1>Registrar empleado</h1>
+      <paper-input label="Nombre completo"></paper-input>
+      <paper-button raised class="indigo">raised</paper-button>
     </div>
   </template>
 
   <script>
-    class MyView1 extends Polymer.Element {
-      static get is() { return 'my-view1'; }
+    class RegisterUser extends Polymer.Element {
+      static get is() { return 'register-user'; }
     }
 
-    window.customElements.define(MyView1.is, MyView1);
+    window.customElements.define(RegisterUser.is, RegisterUser);
   </script>
 </dom-module>
