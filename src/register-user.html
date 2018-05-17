@@ -33,8 +33,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <h1>Registrar empleado</h1>
-      <paper-input value="{{fullName}}" id="name_input" label="Nombre completo"></paper-input>
-      <paper-button raised on-click="sendData" class="indigo" href$="/src/list-user.html">SAVE</paper-button>
+      <paper-input value="{{fullName}}" id="input" label="Nombre completo"></paper-input>
+      <paper-button raised on-click="sendData" class="indigo">SAVE</paper-button>
     </div>
 
     <iron-ajax
@@ -69,7 +69,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       sendData(event) {
-        this.$.postUser.generateRequest();
+        '' !== this.fullName && (this.dispatchEvent(new CustomEvent('name-changed', {
+            composed: !0,
+            bubbles: !0,
+            detail: this.$.postUser.generateRequest()
+        })),
+        this.$.input.value = '');
       }
 
       getPostBody(name) {
@@ -77,6 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           name: name
         };
       }
+        
     }
 
     window.customElements.define(RegisterUser.is, RegisterUser);
